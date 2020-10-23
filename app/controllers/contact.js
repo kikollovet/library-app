@@ -16,10 +16,21 @@ export default Controller.extend ({
     actions: {
 
         sendContactMessage() {
-            alert(`Sending contact message from ${this.get('emailAddress')}\nMessage: ${this.get('message')}`);
-            this.set('confirmationMessage', `We got your message and we’ll get in touch soon`);
-            this.set('emailAddress', '');
-            this.set('message', '');
+            
+            const email = this.get('emailAddress');
+            const message = this.get('message');
+
+            const newContact = this.store.createRecord('contact', { email, message });
+           
+            newContact.save().then(response => {
+                this.set('confirmationMessage', `Thank you! We got your message`);
+                this.set('emailAddress', '');
+                this.set('message', '');
+            }) 
+        },
+
+        willTransaction() {
+            this.controller.get('model').rollbackAttributes();
         }
     }
 })

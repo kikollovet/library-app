@@ -13,7 +13,7 @@ export default Controller.extend ({
     actions: {
 
         saveInvitation() {
-            console.log('inicio');
+            
             const email = this.get('emailAddress');
 
             const newInvitation = this.store.createRecord('invitation', { email });
@@ -22,7 +22,7 @@ export default Controller.extend ({
                 this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
                 this.set('emailAddress', '');
             })
-            console.log('fim');
+            
         }
     }
     

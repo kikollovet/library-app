@@ -1,0 +1,17 @@
+{{#each model as |contact|}}
+
+    {{!-- O IF É GAMBIARRA. TAVA APARECENDO SEMPRE UM PANEL VAZIO DEPOIS QUE SE GRAVAVA--}}
+    {{#if contact.email}}
+        <div class="col-sm-4 mb-3 mb-md-0">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1 class="panel-title">{{contact.email}}</h1>
+                </div>
+                <div class="panel-body">
+                    <h5>{{contact.message}}</h5>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+
+{{/each}}
