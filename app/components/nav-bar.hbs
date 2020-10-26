@@ -1,0 +1,38 @@
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        {{#link-to 'index' class="navbar-brand"}}Library App{{/link-to}}
+      </div>
+
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="nav navbar-nav" id="barraNav">
+            {{#nav-link-to 'index'}}Home{{/nav-link-to}}
+            {{#nav-link-to 'libraries'}}Libraries{{/nav-link-to}}
+            {{#nav-link-to 'about'}}About{{/nav-link-to}}
+            {{#nav-link-to 'contact'}}Contact{{/nav-link-to}}
+            {{#nav-link-to 'admin.invitations'}}Admin - Invitations{{/nav-link-to}}
+            {{#nav-link-to 'admin.contacts'}}Admin - Contacts{{/nav-link-to}}
+        </ul>
+
+        <!--DROPDOWN MENU NÃO FUNCIONA-->
+        <!--<ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              Admin<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+            {{#link-to 'admin.invitations' class="dropdown-item" tagName="li"}}<a href="">Invitations</a>{{/link-to}}
+            {{#link-to 'admin.contacts' class="dropdown-item" tagName="li"}}<a href="">Contacts</a>{{/link-to}}
+            </ul>
+          </li>
+        </ul>-->
+        
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>

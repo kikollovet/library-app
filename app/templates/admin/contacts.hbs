@@ -3,19 +3,9 @@
         {{#each model as |contact|}}
             {{!-- O IF É GAMBIARRA. TAVA APARECENDO SEMPRE UM PANEL VAZIO DEPOIS QUE SE GRAVAVA--}}
             {{#if contact.email}}
-                <div class="card">
-                    <div class="align-vert-cardhead-cardbody">
-                        <div class="card-header" id="CH">
-                            {{contact.email}}
-                        </div>
-                        <div class="card-body">
-                            <h5>{{contact.message}}</h5>
-                        </div>
-                    </div>
-                    <div class="card-footer text-right">
-                        <button class="btn btn-danger btn-xs" {{action 'deleteContact' contact}}>Delete</button>
-                    </div>
-                </div>
+                <ContactItem @item={{contact}}>
+                    <button class="btn btn-danger btn-xs" {{action 'deleteContact' contact}}>Delete</button>
+                </ContactItem>
             {{/if}}
         {{/each}}
     </div>
