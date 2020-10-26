@@ -1,0 +1,104 @@
+
+/*#contacts .panel {outline: 5px solid green}*/
+#contacts {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#contacts .col-container {
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+    /*width: 100%;*/
+}
+#contacts .card {
+    background-color: rgb(32, 109, 90);
+    border: solid; 
+    border-width: 5px; 
+    border-color: rgb(0, 0, 0); 
+    border-radius: 15px;
+    /*height: max-content;*/
+    /*width: 350px;*/
+    /*float: left;*/
+    margin: 20px;
+    word-wrap: break-word;
+    /*display: table-cell;*/
+    /*display: grid;
+    grid-template-rows: 50px auto 50px;
+    grid-template-columns: 300px;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    /*justify-content: center;*/
+    
+}
+#contacts #CH {
+    /*height: max-content;*/
+    background-color: rgb(197, 197, 197);
+    color: rgb(0, 0, 0);
+    border-radius: 10px; 
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 10px;
+}
+#contacts .card-body {
+    background-color: rgb(32, 109, 90);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 10px;
+    word-wrap: break-word;   
+}
+
+#contacts .align-vert-cardhead-cardbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/*#contacts .card-body #card-body-text {
+    height: max-content;
+}*/
+
+#contacts .card-footer {
+    background-color: rgb(32, 33, 36); 
+    border-radius: 10px; 
+    border: solid; 
+    border-width: 0px; 
+    border-color: rgb(0, 0, 0);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 10px;
+}
+
+#contacts .btn {
+    border: solid; 
+    border-width: 2px; 
+    border-color: rgb(255, 255, 255);
+}
+
+#contacts .btn-danger {
+    /*border: solid; 
+    border-width: 2px; 
+    border-color: rgb(0, 0, 0);*/
+    border-radius: 10px; 
+    padding: 6px 11px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0); 
+}
+
+
+
+/*#contacts .col {
+    display: table-cell;
+    
+}*/
+
+

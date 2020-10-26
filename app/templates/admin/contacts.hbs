@@ -1,20 +1,22 @@
-{{#each model as |contact|}}
-
-    {{!-- O IF É GAMBIARRA. TAVA APARECENDO SEMPRE UM PANEL VAZIO DEPOIS QUE SE GRAVAVA--}}
-    {{#if contact.email}}
-        <div class="col-sm-4 mb-3 mb-md-0">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1 class="panel-title">{{contact.email}}</h1>
+<div  id="contacts">
+    <div class="col-container">  
+        {{#each model as |contact|}}
+            {{!-- O IF É GAMBIARRA. TAVA APARECENDO SEMPRE UM PANEL VAZIO DEPOIS QUE SE GRAVAVA--}}
+            {{#if contact.email}}
+                <div class="card">
+                    <div class="align-vert-cardhead-cardbody">
+                        <div class="card-header" id="CH">
+                            {{contact.email}}
+                        </div>
+                        <div class="card-body">
+                            <h5>{{contact.message}}</h5>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-danger btn-xs" {{action 'deleteContact' contact}}>Delete</button>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <h5>{{contact.message}}</h5>
-                </div>
-                <div class="panel-footer text-right">
-                    <button class="btn btn-danger btn-xs" {{action 'deleteContact' contact}}>Delete</button>
-                </div>
-            </div>
-        </div>
-    {{/if}}
-
-{{/each}}
+            {{/if}}
+        {{/each}}
+    </div>
+</div>

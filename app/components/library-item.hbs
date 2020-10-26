@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="align-vert-cardhead-cardbody">
+            <div class="card-header" id="CH">
+                {{@item.name}}
+            </div>
+        <div class="card-body">
+            <p>Address: {{@item.address}}</p>
+            <p>Phone: {{@item.phone}}</p>
+        </div>
+    </div>
+    <div class="card-footer text-right ">
+        {{yield}}
+    </div>
+</div>
