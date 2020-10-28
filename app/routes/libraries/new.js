@@ -22,11 +22,18 @@ export default Route.extend({
             newLibrary.save().then(() => this.transitionTo('libraries'));
         },
 
-        willTransaction() {
+        willTransition(transition) {
+
             let model = this.controller.get('model');
 
-            if (model.get('isNew')) {
-                model.destroyRecord();
+            if (model.get('hasDirtyAttributes')) {
+                let confirmation = confirm("Your changes haven't saved yet. Would you like to leave this form?");
+
+                if(confirmation) {
+                    model.rollbackAttributes();
+                } else {
+                    transition.abort();
+                }
             }
         }
     }

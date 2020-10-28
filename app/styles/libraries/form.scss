@@ -1,0 +1,56 @@
+#form {
+    background-color:rgb(127, 166, 197);
+    border: solid; 
+    border-width: 5px; 
+    border-color: rgb(0, 0, 0); 
+    border-radius: 15px;
+    width: 350px;
+    float: left;
+    word-wrap: break-word;
+}
+#form #CH {
+    background-color: rgb(38, 58, 54);
+    color: rgb(255, 255, 255);
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 10px; 
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+#form .card-body {
+    background-color: rgb(39, 90, 131);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    margin-bottom: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 10px;
+    word-wrap: break-word;
+    u {
+        font-weight: bold;
+        text-decoration: none;
+    } 
+}
+
+#form .align-vert-cardhead-cardbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#form .card-footer {
+    background-color: rgb(38, 58, 54); 
+    border-radius: 10px; 
+    border: solid;
+    border-width: 0px; 
+    border-color: rgb(255, 255, 255);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 10px; 
+}

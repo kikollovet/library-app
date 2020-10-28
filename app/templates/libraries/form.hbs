@@ -2,4 +2,10 @@
   <div class="col-md-6">
     {{library-item-form item=model buttonLabel=buttonLabel action='saveLibrary'}}
   </div>
+
+  <div class="col-md-4">
+    {{#library-item-show-in-form item=model}}
+      <br/>
+    {{/library-item-show-in-form}}
+  </div>
 </div>
