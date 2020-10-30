@@ -81,6 +81,7 @@
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     padding: 10px;
+    color: white;
     
 }
 
@@ -110,6 +111,13 @@
     color: rgb(255, 255, 255);
     background-color: rgb(255, 196, 0);
     
+}
+
+#libraries #bookNumbers {
+    float: left;
+    margin-top: 17px;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /*#libraries .btn-xs {}*/

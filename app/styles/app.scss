@@ -5,6 +5,7 @@
 @import "libraries/form";
 @import "mainNavBar";
 @import "libraries";
+@import "contact";
 
 
 body {
@@ -41,6 +42,14 @@ html {
 @keyframes spin {
     from { transform: scale(1) rotate(0deg); }
     to { transform: scale(1) rotate(360deg); }
+}
+
+.vtop {
+  vertical-align: top!important;
+}
+
+.not-bold {
+  font-weight: normal!important;
 }
   
   /*@-webkit-keyframes spin2 {
