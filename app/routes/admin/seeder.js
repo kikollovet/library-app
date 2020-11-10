@@ -1,8 +1,3 @@
-// import Route from '@ember/routing/route';
-
-// export default class AdminSeederRoute extends Route {
-// }
-
 import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';

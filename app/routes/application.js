@@ -5,15 +5,16 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 export default Route.extend(ApplicationRouteMixin,{
 
     session: service(),
-    actions: {
-        logout() {
+    actions:{
+        logout(){
             return this.get('session').invalidate().catch(function(error) {
                 
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(errorCode, errorMessage);
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode, errorMessage);
 
-                })
-            }
+            })
         }
+    }
+
 })

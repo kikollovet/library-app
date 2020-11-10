@@ -1,8 +1,3 @@
-// import Route from '@ember/routing/route';
-
-// export default class LoginRoute extends Route {
-// }
-
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import firebase from 'firebase/app';

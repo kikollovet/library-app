@@ -1,7 +1,3 @@
-// import Route from '@ember/routing/route';
-
-// export default class AdminContactssRoute extends Route {
-// }
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
