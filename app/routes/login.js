@@ -26,15 +26,7 @@ export default Route.extend({
                  var errorMessage = error.message;
                  console.log(errorCode, errorMessage);
 
-               }).then(() => {
-    
-                    if(this.get('session.attemptedTransition')){
-                        this.get('session.attemptedTransition').retry();
-                    } else {
-                        this.transitionTo("admin.invitations")
-                    }
-           
-                });
+               })
             }
         }
 });
