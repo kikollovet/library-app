@@ -18,7 +18,7 @@
 /npm-debug.log*
 /testem.log
 /yarn-error.log
-/.firebase/
+/.firebase/hosting.ZGlzdA.cache
 
 # ember-try
 /.node_modules.ember-try/
