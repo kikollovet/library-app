@@ -17,6 +17,8 @@ module.exports = function(environment) {
       appId: "1:989821641053:web:9f8eba505a7436fbf108b4"
     },
 
+    
+
     // contentSecurityPolicy: {
     //   'script-src': "'self' 'unsafe-eval' apis.google.com",
     //   'frame-src': "'self' https://*.firebaseapp.com",

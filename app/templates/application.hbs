@@ -4,7 +4,13 @@
 -->
 <div class="container">
   
-  <NavBar />
+  <NavBar>
+    {{#if session.isAuthenticated}}
+      <li style="margin-top:7px; margin-left:10px">
+        <button {{action "logout"}} class="btn btn-primary" >Sign out</button>
+      </li>
+    {{/if}}
+  </NavBar>
 
   {{outlet}}
 </div>
