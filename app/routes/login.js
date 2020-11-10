@@ -32,9 +32,9 @@ export default Route.extend({
                         this.get('session.attemptedTransition').retry();
                     } else {
                         this.transitionTo("admin.invitations")
-                }
+                    }
            
-            });
+                });
+            }
         }
-    }
 });
