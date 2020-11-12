@@ -3,6 +3,11 @@
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
 
+## We are live - Visit US
+
+* Visit us at [https://library-app-d127b.web.app/](https://library-app-d127b.web.app/)
+* To access the admin area use: email - user@teste.com , password - testeteste
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
