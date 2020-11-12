@@ -3,7 +3,6 @@
 <div  id="libraries">
     <div class="col-container">  
         {{#each model as |library|}}
-            {{!-- O IF É GAMBIARRA. DA PRIMEIRA VEZ QUE RENDERIZAVA APARECIA UM CARD VAZIO--}}
             {{#if library.name}}
                 <div>
                     <LibraryItem @item={{library}}>

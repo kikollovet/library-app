@@ -1,7 +1,6 @@
 <div  id="contacts">
     <div class="col-container">  
         {{#each model as |contact|}}
-            {{!-- O IF É GAMBIARRA. TAVA APARECENDO SEMPRE UM PANEL VAZIO DEPOIS QUE SE GRAVAVA--}}
             {{#if contact.email}}
                 <ContactItem @item={{contact}}>
                     <button class="btn btn-danger btn-xs" {{action 'deleteContact' contact}}>Delete</button>

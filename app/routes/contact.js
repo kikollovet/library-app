@@ -11,7 +11,6 @@ export default Route.extend({
         sendContactMessage(newContact) {
             
             newContact.save().then(() => newContact.set('responseMessage', true));
-            //this.controller.get('model').set('responseMessage', true);
         },
 
         willTransaction() {

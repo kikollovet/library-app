@@ -1,8 +1,3 @@
-// import Component from '@glimmer/component';
-
-// export default class SeederBlockComponent extends Component {
-// }
-
 import { lte, not, or } from '@ember/object/computed';
 import Component from '@ember/component';
 
@@ -29,8 +24,6 @@ export default Component.extend({
 
         generateAction() {
             if (this.get('isCounterValid')) {
-
-                // Action up to Seeder Controller with the requested amount
                 this.sendAction('generateAction', this.get('counter'));
             }
         },
