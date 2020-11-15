@@ -1,10 +1,3 @@
-// import Model, { attr } from '@ember-data/model';
-
-// export default class ContactModel extends Model {
-//   @attr('string') email;
-//   @attr('string') message;
-// }
-
 import DS from 'ember-data';
 import { match, not } from '@ember/object/computed';
 import { gte } from '@ember/object/computed';

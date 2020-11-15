@@ -3,12 +3,6 @@ import DS from 'ember-data';
 import { notEmpty } from '@ember/object/computed';
 import Faker from 'faker';
 
-// export default class LibraryModel extends Model {
-//   @attr('string') name;
-//   @attr('string') address;
-//   @attr('string') phone;
-// }
-
 export default DS.Model.extend({
 
     name: DS.attr('string'),

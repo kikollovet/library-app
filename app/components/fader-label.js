@@ -1,8 +1,3 @@
-// import Component from '@glimmer/component';
-
-// export default class FaderLabelComponent extends Component {
-// }
-
 import { later, cancel } from '@ember/runloop';
 import { observer } from '@ember/object';
 import Component from '@ember/component';

@@ -1,8 +1,3 @@
-// import Component from '@glimmer/component';
-
-// export default class SeederBlockComponent extends Component {
-// }
-
 import { lte, not, or } from '@ember/object/computed';
 import Component from '@ember/component';
 

@@ -1,8 +1,3 @@
-// import Route from '@ember/routing/route';
-
-// export default class BooksRoute extends Route {
-// }
-
 import Route from '@ember/routing/route';
 
 export default Route.extend({

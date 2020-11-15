@@ -1,8 +1,3 @@
-// import Controller from '@ember/controller';
-
-// export default class AdminSeederController extends Controller {
-// }
-
 import { all } from 'rsvp';
 import Controller from '@ember/controller';
 import Faker from "faker";
