@@ -1,7 +1,3 @@
-// import Route from '@ember/routing/route';
-
-// export default class AuthorsRoute extends Route {
-// }
 import Route from '@ember/routing/route';
 
 export default Route.extend({
