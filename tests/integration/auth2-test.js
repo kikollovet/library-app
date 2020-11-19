@@ -33,7 +33,7 @@ module('Acceptance | login Authentificated', function(hooks) {
 
     await visit('');
       await fillIn('input#emailField', 'cool@cool.com');
-      await click('button#submitButton');
+      await click('button#submitButton');'[data-test="book"]'
 
     await visit('admin/invitations');
     // await fillIn('input#emailField', 'user@teste.com');
@@ -71,17 +71,26 @@ module('Acceptance | login Authentificated', function(hooks) {
     await pauseTest();
     await click('#libButton')
     await pauseTest();
-    await fillIn('#authorInput', '3');
+    await fillIn('#authorInput', '4');
     await pauseTest();
     await click('#authorButton')
     await pauseTest();
-    assert.equal(find('#numberLib').textContent, '\n  Libraries\n  3\n');
-    assert.equal(find('#numberAuthor').textContent, '\n  Authors\n  3\n');
+    assert.equal(find('h1#numberLib').textContent, '3');
+    assert.equal(find('h1#numberAuthor').textContent, '4');
+
+    let numberBooks = (this.element.querySelector('h1#numberBook')).textContent
+    console.log("numero de livros: " + numberBooks)
+
+    let numberBooksInt = parseInt(numberBooks)
 
     await visit('libraries');
+    assert.equal(findAll('.card-body').length, 3);
     await pauseTest();
 
     await visit('authors');
+    assert.equal(findAll('#author').length, 4);
+    //assert.equal(findAll('[data-test="book"]').length, numberBooksInt);
+    assert.equal(findAll('li#book').length, numberBooksInt);
     await pauseTest();
 
     //await click('button#logoutButton');

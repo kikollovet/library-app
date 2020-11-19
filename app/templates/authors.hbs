@@ -25,13 +25,13 @@
             </div>
           </form>
         {{else}}
-          <span {{action 'editAuthor' author}}>{{author.name}}</span>
+          <span id="author" {{action 'editAuthor' author}}>{{author.name}}</span>
         {{/if}}
       </td>
       <td>
         <ul>
           {{#each author.books as |book|}}
-            <li>{{book.title}}</li>
+            <li id="book">{{book.title}}</li>
           {{/each}}
         </ul>
       </td>
