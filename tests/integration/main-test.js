@@ -7,7 +7,7 @@ import Service from '@ember/service';
 import Adapter from 'ember-local-storage/adapters/local';
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
 
-module('Acceptance | login Authentificated', function(hooks) {
+module('Acceptance | Main flow of Application', function(hooks) {
   setupApplicationTest(hooks);
 
   hooks.afterEach(function() {
@@ -20,8 +20,7 @@ module('Acceptance | login Authentificated', function(hooks) {
     resetStorages();
   });
 
-  test('sending an invitation, visiting admin invitations with authorization, confirming' +
-   ' invitation sended + creating libraries and authors using fake + creating a library using form', async function(assert) {
+  test('Main flow of the application', async function(assert) {
 
     this.owner.register('service:logged-user', class TestService extends Service {
       @tracked user = {email: 'user@teste.com'}
@@ -31,11 +30,28 @@ module('Acceptance | login Authentificated', function(hooks) {
    
     });
 
+    await visit('admin/invitations');
+    assert.equal(currentURL(), '/login');
+
+    await visit('admin/contacts');
+    assert.equal(currentURL(), '/login');
+
+    await visit('admin/seeder');
+    assert.equal(currentURL(), '/login');
+
+
     await visit('');
     await fillIn('[data-test="emailField"]', 'cool@cool.com');
     await pauseTest();
     await click('[data-test="saveInvitation"]');
     await pauseTest();
+
+    await visit('contact');
+    await fillIn(this.element.querySelectorAll('input')[0], "hellofrommars@gmaioul.com")
+    await fillIn(this.element.querySelectorAll('textarea')[0], "Hello!! Greetings from Mars!!")
+    await pauseTest();
+    await click('[data-test="saveContact"]');
+
 
     await visit('admin/invitations');
     // await fillIn('input#emailField', 'user@teste.com');
@@ -52,6 +68,11 @@ module('Acceptance | login Authentificated', function(hooks) {
     assert.equal(this.element.querySelector('h1').textContent, 'Invitations');
     assert.equal(find('[data-test="invitationEmail"]').textContent, 'cool@cool.com');
 
+    await visit('admin/contacts');
+    await pauseTest();
+    assert.equal(find('.card-header').innerText, 'hellofrommars@gmaioul.com');
+    assert.equal(find('h5').innerText, 'Hello!! Greetings from Mars!!');
+  
     await visit('libraries/new');
     await pauseTest();
     await fillIn(this.element.querySelectorAll('input')[0], "Biblioteca Penha")
@@ -91,11 +112,9 @@ module('Acceptance | login Authentificated', function(hooks) {
 
     await visit('authors');
     assert.equal(findAll('[data-test="author"]').length, 4);
-    //assert.equal(findAll('[data-test="book"]').length, numberBooksInt);
     assert.equal(findAll('[data-test="book"]').length, numberBooksInt);
     await pauseTest();
 
-    //await click('button#logoutButton');
     await invalidateSession();
     
     await visit('admin/contacts');
