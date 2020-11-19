@@ -20,7 +20,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button id="saveLibrary" type="submit" class="btn btn-primary" {{on 'click' (fn this.buttonClicked @item)}} disabled={{unless @item.isValid true}}>{{@buttonLabel}}</button>
+      <button data-test="saveLibrary" type="submit" class="btn btn-primary" {{on 'click' (fn this.buttonClicked @item)}} disabled={{unless @item.isValid true}}>{{@buttonLabel}}</button>
     </div>
   </div>
 </div>

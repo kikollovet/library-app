@@ -32,8 +32,10 @@ module('Acceptance | login Authentificated', function(hooks) {
     });
 
     await visit('');
-      await fillIn('input#emailField', 'cool@cool.com');
-      await click('button#submitButton');'[data-test="book"]'
+    await fillIn('[data-test="emailField"]', 'cool@cool.com');
+    await pauseTest();
+    await click('[data-test="saveInvitation"]');
+    await pauseTest();
 
     await visit('admin/invitations');
     // await fillIn('input#emailField', 'user@teste.com');
@@ -48,7 +50,7 @@ module('Acceptance | login Authentificated', function(hooks) {
     
     assert.equal(currentURL(), '/admin/invitations');
     assert.equal(this.element.querySelector('h1').textContent, 'Invitations');
-    assert.equal(find('.invitationEmail').textContent, 'cool@cool.com');
+    assert.equal(find('[data-test="invitationEmail"]').textContent, 'cool@cool.com');
 
     await visit('libraries/new');
     await pauseTest();
@@ -58,7 +60,7 @@ module('Acceptance | login Authentificated', function(hooks) {
     await pauseTest();
     await fillIn(this.element.querySelectorAll('input')[2], "(11) 4444-3333")
     await pauseTest();
-    await click('button#saveLibrary');
+    await click('[data-test="saveLibrary"]');
     await visit('libraries');
     await pauseTest();
 
@@ -67,18 +69,18 @@ module('Acceptance | login Authentificated', function(hooks) {
     assert.equal(find(this.element.querySelectorAll('p')[2]).textContent, 'Phone: (11) 4444-3333');
 
     await visit('admin/seeder');
-    await fillIn('#libInput', '2');
+    await fillIn('[data-test="libInput"]', '2');
     await pauseTest();
-    await click('#libButton')
+    await click('[data-test="libButton"]')
     await pauseTest();
-    await fillIn('#authorInput', '4');
+    await fillIn('[data-test="authorInput"]', '4');
     await pauseTest();
-    await click('#authorButton')
+    await click('[data-test="authorButton"]')
     await pauseTest();
-    assert.equal(find('h1#numberLib').textContent, '3');
-    assert.equal(find('h1#numberAuthor').textContent, '4');
+    assert.equal(find('[data-test="numberLib"]').textContent, '3');
+    assert.equal(find('[data-test="numberAuthor"]').textContent, '4');
 
-    let numberBooks = (this.element.querySelector('h1#numberBook')).textContent
+    let numberBooks = (this.element.querySelector('[data-test="numberBook"]')).textContent
     console.log("numero de livros: " + numberBooks)
 
     let numberBooksInt = parseInt(numberBooks)
@@ -88,9 +90,9 @@ module('Acceptance | login Authentificated', function(hooks) {
     await pauseTest();
 
     await visit('authors');
-    assert.equal(findAll('#author').length, 4);
+    assert.equal(findAll('[data-test="author"]').length, 4);
     //assert.equal(findAll('[data-test="book"]').length, numberBooksInt);
-    assert.equal(findAll('li#book').length, numberBooksInt);
+    assert.equal(findAll('[data-test="book"]').length, numberBooksInt);
     await pauseTest();
 
     //await click('button#logoutButton');
