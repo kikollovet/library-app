@@ -20,7 +20,8 @@ module('Acceptance | login Authentificated', function(hooks) {
     resetStorages();
   });
 
-  test('sending an invitation, visiting admin invitations with authorization, confirming invitation sended', async function(assert) {
+  test('sending an invitation, visiting admin invitations with authorization, confirming' +
+   ' invitation sended + creating libraries and authors using fake', async function(assert) {
 
     this.owner.register('service:logged-user', class TestService extends Service {
       @tracked user = {email: 'user@teste.com'}
@@ -48,7 +49,25 @@ module('Acceptance | login Authentificated', function(hooks) {
     assert.equal(currentURL(), '/admin/invitations');
     assert.equal(this.element.querySelector('h1').textContent, 'Invitations');
     assert.equal(find('.invitationEmail').textContent, 'cool@cool.com');
-    
+
+    await visit('admin/seeder');
+    await fillIn('#libInput', '2');
+    await pauseTest();
+    await click('#libButton')
+    await pauseTest();
+    await fillIn('#authorInput', '3');
+    await pauseTest();
+    await click('#authorButton')
+    await pauseTest();
+    assert.equal(find('#numberLib').textContent, '\n  Libraries\n  2\n');
+    assert.equal(find('#numberAuthor').textContent, '\n  Authors\n  3\n');
+
+    await visit('libraries');
+    await pauseTest();
+
+    await visit('authors');
+    await pauseTest();
+
     //await click('button#logoutButton');
     await invalidateSession();
     
