@@ -105,7 +105,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //Filling the fields of seeder form to create libraries, books and authors with ember-faker
     //Filling 2 to create 2 libraries
-    //Fillong 4 to create 4 authors and a random number of books
+    //Filling 4 to create 4 authors and a random number of books
     await visit('admin/seeder');
     await fillIn('[data-test="libInput"]', '2');
     await pauseTest();
@@ -134,7 +134,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Here the assertion works by counting the html elements with their respective data-test attributes,
     //so, there must be three .card-body that means three libraries
     await visit('libraries');
-    assert.equal(findAll('.card-body').length, 3, 'Assert the correct number of library cards');
+    assert.dom('.card-body').exists({count: 3}, 'Assert the correct number of library cards');
     await pauseTest();
 
     //Asserting the number of authors and books created by the seeder in authors page
@@ -143,9 +143,8 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Its the same as was with the libraries, suppose there is 20 authors, there will be 20 data-test="book"
     //elements
     await visit('authors');
-    assert.equal(findAll('[data-test="author"]').length, 4,
-      'Assert the total number of authors in the table');
-    assert.equal(findAll('[data-test="book"]').length, numberBooksInt,
+    assert.dom('[data-test="author"]').exists({count: 4}, 'Assert the total number of authors in the table');
+    assert.dom('[data-test="book"]').exists({count: numberBooksInt}, 
       'Assert the total number of books show in table');
     await pauseTest();
 
