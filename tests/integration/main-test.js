@@ -36,13 +36,13 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //These three asserts prove that an unauthorized user can´t see the content of the pages and are redirected
     //to login form
     await visit('admin/invitations');
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login', 'Assert unauthorized route admin/invitations');
 
     await visit('admin/contacts');
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login', 'Assert unauthorized route admin/contacts');
 
     await visit('admin/seeder');
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login', 'Assert unauthorized route admin/seeder');
 
     //Sending an invitation
     await visit('');
@@ -67,17 +67,20 @@ module('Acceptance | Main flow of Application', function(hooks) {
     await pauseTest();
     
     //Asserting that you are redirected to the last atempted route after login (authenticateSession())
-    assert.equal(currentURL(), '/admin/invitations');
-    assert.equal(this.element.querySelector('h1').textContent, 'Invitations');
+    assert.equal(currentURL(), '/admin/invitations', "Confirm redirected after authenticateSession");
+    assert.equal(this.element.querySelector('h1').textContent, 'Invitations', "Confirm is in invitation page");
 
     //Asserting that the invitation was stored in local database and is show in the page
-    assert.equal(find('[data-test="invitationEmail"]').textContent, 'cool@cool.com');
+    assert.equal(find('[data-test="invitationEmail"]').textContent, 'cool@cool.com',
+      "Assert invitation saved previously is show in admin/invitations");
 
     //Asserting that the contact message was stored in local database and is show in the page
     await visit('admin/contacts');
     await pauseTest();
-    assert.equal(find('.card-header').innerText, 'hellofrommars@gmaioul.com');
-    assert.equal(find('h5').innerText, 'Hello!! Greetings from Mars!!');
+    assert.equal(find('.card-header').innerText, 'hellofrommars@gmaioul.com', 
+      "Assert contact email saved previously is show in admin/contacts");
+    assert.equal(find('h5').innerText, 'Hello!! Greetings from Mars!!',
+      "Assert contact message saved previously is show in admin/contacts");
   
     //Populating the form and saving a Library
     await visit('libraries/new');
@@ -93,9 +96,12 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Asserting that the library was stored in local database and is show in the page
     await visit('libraries');
     await pauseTest();
-    assert.equal(find(this.element.querySelectorAll('p')[0]).textContent, 'Biblioteca Penha');
-    assert.equal(find(this.element.querySelectorAll('p')[1]).textContent, 'Address: Rua do Bosque, 989');
-    assert.equal(find(this.element.querySelectorAll('p')[2]).textContent, 'Phone: (11) 4444-3333');
+    assert.equal(find(this.element.querySelectorAll('p')[0]).textContent, 'Biblioteca Penha',
+      'Assert library name saved previously');
+    assert.equal(find(this.element.querySelectorAll('p')[1]).textContent, 'Address: Rua do Bosque, 989',
+      'Assert library address saved previously');
+    assert.equal(find(this.element.querySelectorAll('p')[2]).textContent, 'Phone: (11) 4444-3333',
+      'Assert library phone saved previously');
 
     //Filling the fields of seeder form to create libraries, books and authors with ember-faker
     //Filling 2 to create 2 libraries
@@ -113,8 +119,10 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Asserting that the numbers of libraries and authors created are equal to the numbers filled in the form
     //Remeber that the number of libraries is three because I created 1 before in the form
     //Attention, here we are still in seeder page and the numbers I get from the respective number box.
-    assert.equal(find('[data-test="numberLib"]').textContent, '3');
-    assert.equal(find('[data-test="numberAuthor"]').textContent, '4');
+    assert.equal(find('[data-test="numberLib"]').textContent, '3',
+      'Assert total number of libraries in the corresponding number box');
+    assert.equal(find('[data-test="numberAuthor"]').textContent, '4',
+      'Assert total number of authors in the corresponding number box');
 
     //The numbers of book created by the seeder is always random, so here I´m getting this random number of
     //books from the respective number box to use later in an assertion
@@ -126,7 +134,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Here the assertion works by counting the html elements with their respective data-test attributes,
     //so, there must be three .card-body that means three libraries
     await visit('libraries');
-    assert.equal(findAll('.card-body').length, 3);
+    assert.equal(findAll('.card-body').length, 3, 'Assert the correct number of library cards');
     await pauseTest();
 
     //Asserting the number of authors and books created by the seeder in authors page
@@ -135,8 +143,10 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Its the same as was with the libraries, suppose there is 20 authors, there will be 20 data-test="book"
     //elements
     await visit('authors');
-    assert.equal(findAll('[data-test="author"]').length, 4);
-    assert.equal(findAll('[data-test="book"]').length, numberBooksInt);
+    assert.equal(findAll('[data-test="author"]').length, 4,
+      'Assert the total number of authors in the table');
+    assert.equal(findAll('[data-test="book"]').length, numberBooksInt,
+      'Assert the total number of books show in table');
     await pauseTest();
 
     //Invalidating the session
@@ -147,6 +157,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //is logged out of the system and is redirected to login page
     await visit('admin/contacts');
     await pauseTest();
-    assert.equal(currentURL(), '/login');
+    assert.equal(currentURL(), '/login', 
+      'Assert after being logged out you can´t enter protected routes');
   });
 });
