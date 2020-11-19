@@ -21,7 +21,7 @@ module('Acceptance | login Authentificated', function(hooks) {
   });
 
   test('sending an invitation, visiting admin invitations with authorization, confirming' +
-   ' invitation sended + creating libraries and authors using fake', async function(assert) {
+   ' invitation sended + creating libraries and authors using fake + creating a library using form', async function(assert) {
 
     this.owner.register('service:logged-user', class TestService extends Service {
       @tracked user = {email: 'user@teste.com'}
@@ -50,6 +50,22 @@ module('Acceptance | login Authentificated', function(hooks) {
     assert.equal(this.element.querySelector('h1').textContent, 'Invitations');
     assert.equal(find('.invitationEmail').textContent, 'cool@cool.com');
 
+    await visit('libraries/new');
+    await pauseTest();
+    await fillIn(this.element.querySelectorAll('input')[0], "Biblioteca Penha")
+    await pauseTest();
+    await fillIn(this.element.querySelectorAll('input')[1], "Rua do Bosque, 989")
+    await pauseTest();
+    await fillIn(this.element.querySelectorAll('input')[2], "(11) 4444-3333")
+    await pauseTest();
+    await click('button#saveLibrary');
+    await visit('libraries');
+    await pauseTest();
+
+    assert.equal(find(this.element.querySelectorAll('p')[0]).textContent, 'Biblioteca Penha');
+    assert.equal(find(this.element.querySelectorAll('p')[1]).textContent, 'Address: Rua do Bosque, 989');
+    assert.equal(find(this.element.querySelectorAll('p')[2]).textContent, 'Phone: (11) 4444-3333');
+
     await visit('admin/seeder');
     await fillIn('#libInput', '2');
     await pauseTest();
@@ -59,7 +75,7 @@ module('Acceptance | login Authentificated', function(hooks) {
     await pauseTest();
     await click('#authorButton')
     await pauseTest();
-    assert.equal(find('#numberLib').textContent, '\n  Libraries\n  2\n');
+    assert.equal(find('#numberLib').textContent, '\n  Libraries\n  3\n');
     assert.equal(find('#numberAuthor').textContent, '\n  Authors\n  3\n');
 
     await visit('libraries');
