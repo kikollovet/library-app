@@ -1,11 +1,11 @@
 <div class="card">
     <div class="align-vert-cardhead-cardbody">
             <div class="card-header" id="CH">
-                <p>{{@item.name}}</p>
+                <p data-test="libName">{{@item.name}}</p>
             </div>
         <div class="card-body">
-            <p><u>Address:</u> {{@item.address}}</p>
-            <p><u>Phone:</u> {{@item.phone}}</p>
+            <p data-test="libAddress"><u>Address:</u> {{@item.address}}</p>
+            <p data-test="libPhone"><u>Phone:</u> {{@item.phone}}</p>
         </div>
     </div>
     <div class="card-footer text-right ">

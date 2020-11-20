@@ -44,19 +44,20 @@ module('Acceptance | Main flow of Application', function(hooks) {
     await visit('admin/seeder');
     assert.equal(currentURL(), '/login', 'Assert unauthorized route admin/seeder');
 
-    //Sending an invitation
+    //Sending an invitation.
     await visit('');
     await fillIn('[data-test="emailField"]', 'cool@cool.com');
     await pauseTest();
     await click('[data-test="saveInvitation"]');
     await pauseTest();
 
-    //Sending a contact message
+    //Sending a contact message. 
     await visit('contact');
-    await fillIn(this.element.querySelectorAll('input')[0], "hellofrommars@gmaioul.com")
-    await fillIn(this.element.querySelectorAll('textarea')[0], "Hello!! Greetings from Mars!!")
+    await fillIn('[data-test="contactEmail"]', 'hellofrommars@gmaioul.com')
+    await fillIn('[data-test="contactMessage"]', 'Hello!! Greetings from Mars!!')
     await pauseTest();
     await click('[data-test="saveContact"]');
+    await pauseTest();
 
     //Visiting admin/invitations without login so when the login is done you are redirected to
     //admin/invitations
@@ -85,22 +86,23 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Populating the form and saving a Library
     await visit('libraries/new');
     await pauseTest();
-    await fillIn(this.element.querySelectorAll('input')[0], "Biblioteca Penha")
+    await fillIn('[data-test="nameLib"]', "Biblioteca Penha");
     await pauseTest();
-    await fillIn(this.element.querySelectorAll('input')[1], "Rua do Bosque, 989")
+    await fillIn('[data-test="addressLib"]', "Rua do Bosque, 989");
     await pauseTest();
-    await fillIn(this.element.querySelectorAll('input')[2], "(11) 4444-3333")
+    await fillIn('[data-test="phoneLib"]', "(11) 4444-3333");
     await pauseTest();
     await click('[data-test="saveLibrary"]');
     
     //Asserting that the library was stored in local database and is show in the page
     await visit('libraries');
     await pauseTest();
-    assert.equal(find(this.element.querySelectorAll('p')[0]).textContent, 'Biblioteca Penha',
+    const pElement = findAll('p')
+    assert.equal(find('[data-test="libName"]').textContent, 'Biblioteca Penha',
       'Assert library name saved previously');
-    assert.equal(find(this.element.querySelectorAll('p')[1]).textContent, 'Address: Rua do Bosque, 989',
+    assert.equal(find('[data-test="libAddress"]').textContent, 'Address: Rua do Bosque, 989',
       'Assert library address saved previously');
-    assert.equal(find(this.element.querySelectorAll('p')[2]).textContent, 'Phone: (11) 4444-3333',
+    assert.equal(find('[data-test="libPhone"]').textContent, 'Phone: (11) 4444-3333',
       'Assert library phone saved previously');
 
     //Filling the fields of seeder form to create libraries, books and authors with ember-faker
