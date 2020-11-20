@@ -9,6 +9,20 @@ import resetStorages from 'ember-local-storage/test-support/reset-storage';
 
 module('Acceptance | Main flow of Application', function(hooks) {
   setupApplicationTest(hooks);
+  
+  //Preparation before test
+  hooks.beforeEach(function() {
+    //This service is needed to mock the real service that needs a real conection with firebase auth
+    //to retrieve logged user email
+    this.owner.register('service:logged-user', class TestService extends Service {
+      @tracked user = {email: 'user@teste.com'}
+    });
+
+    //This adapter is used to use ember local storage instead of firestore
+    this.owner.register('adapter:application', class TestService extends Adapter {
+   
+    });
+  });
 
   //This makes the database empty after the end of the test
   hooks.afterEach(function() {
@@ -22,17 +36,6 @@ module('Acceptance | Main flow of Application', function(hooks) {
   });
 
   test('Main flow of the application', async function(assert) {
-
-    //This service is needed to mock the real service that needs a real conection with firebase auth
-    //to retrieve logged user email
-    this.owner.register('service:logged-user', class TestService extends Service {
-      @tracked user = {email: 'user@teste.com'}
-    });
-
-    //This adapter is used to use ember local storage instead of firestore
-    this.owner.register('adapter:application', class TestService extends Adapter {
-   
-    });
 
     //These three asserts prove that an unauthorized user can´t see the content of the pages and are redirected
     //to login form
