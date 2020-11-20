@@ -48,18 +48,25 @@ module('Acceptance | Main flow of Application', function(hooks) {
     await visit('admin/seeder');
     assert.equal(currentURL(), '/login', 'Assert unauthorized route admin/seeder');
 
-    //Sending an invitation.
+    //Sending an invitation. Also check button is disabled with no e-mail written and not disable with valid
+    //email
     await visit('');
+    assert.dom('[data-test="saveInvitation"]').isDisabled();
     await fillIn('[data-test="emailField"]', 'cool@cool.com');
     await pauseTest();
+    assert.dom('[data-test="saveInvitation"]').isNotDisabled();
     await click('[data-test="saveInvitation"]');
     await pauseTest();
 
-    //Sending a contact message. 
+    //Sending a contact message. Also check button is disabled without valid e-mail and message that got less than
+    //five characters. After filled in the right requirements check the button is not disabled
     await visit('contact');
+    assert.dom('[data-test="saveContact"]').isDisabled();
     await fillIn('[data-test="contactEmail"]', 'hellofrommars@gmaioul.com')
+    assert.dom('[data-test="saveContact"]').isDisabled();
     await fillIn('[data-test="contactMessage"]', 'Hello!! Greetings from Mars!!')
     await pauseTest();
+    assert.dom('[data-test="saveContact"]').isNotDisabled();
     await click('[data-test="saveContact"]');
     await pauseTest();
 
@@ -87,10 +94,13 @@ module('Acceptance | Main flow of Application', function(hooks) {
     assert.equal(find('h5').innerText, 'Hello!! Greetings from Mars!!',
       "Assert contact message saved previously is show in admin/contacts");
   
-    //Populating the form and saving a Library
+    //Populating the form and saving a Library. Also check if button is disabled when the field for the
+    //name of the library is empty, and not disabled when its filled
     await visit('libraries/new');
     await pauseTest();
+    assert.dom('[data-test="saveLibrary"]').isDisabled();
     await fillIn('[data-test="nameLib"]', "Biblioteca Penha");
+    assert.dom('[data-test="saveLibrary"]').isNotDisabled();
     await pauseTest();
     await fillIn('[data-test="addressLib"]', "Rua do Bosque, 989");
     await pauseTest();
