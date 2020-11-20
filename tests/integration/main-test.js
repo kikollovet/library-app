@@ -24,6 +24,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
   test('Main flow of the application', async function(assert) {
 
     //This service is needed to mock the real service that needs a real conection with firebase auth
+    //to retrieve logged user email
     this.owner.register('service:logged-user', class TestService extends Service {
       @tracked user = {email: 'user@teste.com'}
     });
@@ -97,7 +98,6 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Asserting that the library was stored in local database and is show in the page
     await visit('libraries');
     await pauseTest();
-    const pElement = findAll('p')
     assert.equal(find('[data-test="libName"]').textContent, 'Biblioteca Penha',
       'Assert library name saved previously');
     assert.equal(find('[data-test="libAddress"]').textContent, 'Address: Rua do Bosque, 989',
