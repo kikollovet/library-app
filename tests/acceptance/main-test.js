@@ -50,25 +50,24 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //Sending an invitation. Also check button is disabled with no e-mail written and not disable with valid
     //email
+    const emailInvitationInput = 'cool@cool.com';
     await visit('');
     assert.dom('[data-test="saveInvitation"]').isDisabled();
-    await fillIn('[data-test="emailField"]', 'cool@cool.com');
-    await pauseTest();
+    await fillIn('[data-test="emailField"]', emailInvitationInput);
     assert.dom('[data-test="saveInvitation"]').isNotDisabled();
     await click('[data-test="saveInvitation"]');
-    await pauseTest();
 
     //Sending a contact message. Also check button is disabled without valid e-mail and message that got less than
     //five characters. After filled in the right requirements check the button is not disabled
+    const emailContactForm = 'hellofrommars@gmaioul.com';
+    const messageContactForm = 'Hello!! Greetings from Mars!!';
     await visit('contact');
     assert.dom('[data-test="saveContact"]').isDisabled();
-    await fillIn('[data-test="contactEmail"]', 'hellofrommars@gmaioul.com')
+    await fillIn('[data-test="contactEmail"]', emailContactForm)
     assert.dom('[data-test="saveContact"]').isDisabled();
-    await fillIn('[data-test="contactMessage"]', 'Hello!! Greetings from Mars!!')
-    await pauseTest();
+    await fillIn('[data-test="contactMessage"]', messageContactForm)
     assert.dom('[data-test="saveContact"]').isNotDisabled();
     await click('[data-test="saveContact"]');
-    await pauseTest();
 
     //Visiting admin/invitations without login so when the login is done you are redirected to
     //admin/invitations
@@ -76,46 +75,42 @@ module('Acceptance | Main flow of Application', function(hooks) {
     
     //Authenticating the session with ember-simple-auth/test-support
     await authenticateSession();
-    await pauseTest();
     
     //Asserting that you are redirected to the last atempted route after login (authenticateSession())
     assert.equal(currentURL(), '/admin/invitations', "Confirm redirected after authenticateSession");
     assert.equal(this.element.querySelector('h1').textContent, 'Invitations', "Confirm is in invitation page");
 
     //Asserting that the invitation was stored in local database and is show in the page
-    assert.equal(find('[data-test="invitationEmail"]').textContent, 'cool@cool.com',
+    assert.equal(find('[data-test="invitationEmail"]').textContent, emailInvitationInput,
       "Assert invitation saved previously is show in admin/invitations");
 
     //Asserting that the contact message was stored in local database and is show in the page
     await visit('admin/contacts');
-    await pauseTest();
-    assert.equal(find('.card-header').innerText, 'hellofrommars@gmaioul.com', 
+    assert.equal(find('.card-header').innerText, emailContactForm, 
       "Assert contact email saved previously is show in admin/contacts");
-    assert.equal(find('h5').innerText, 'Hello!! Greetings from Mars!!',
+    assert.equal(find('h5').innerText, messageContactForm,
       "Assert contact message saved previously is show in admin/contacts");
   
     //Populating the form and saving a Library. Also check if button is disabled when the field for the
     //name of the library is empty, and not disabled when its filled
+    const libraryNameForm = 'Biblioteca Penha';
+    const libraryAddressForm = 'Rua do Bosque, 989';
+    const libraryPhoneForm = '(11) 4444-3333'
     await visit('libraries/new');
-    await pauseTest();
     assert.dom('[data-test="saveLibrary"]').isDisabled();
-    await fillIn('[data-test="nameLib"]', "Biblioteca Penha");
+    await fillIn('[data-test="nameLib"]', libraryNameForm);
     assert.dom('[data-test="saveLibrary"]').isNotDisabled();
-    await pauseTest();
-    await fillIn('[data-test="addressLib"]', "Rua do Bosque, 989");
-    await pauseTest();
-    await fillIn('[data-test="phoneLib"]', "(11) 4444-3333");
-    await pauseTest();
+    await fillIn('[data-test="addressLib"]', libraryAddressForm);
+    await fillIn('[data-test="phoneLib"]', libraryPhoneForm);
     await click('[data-test="saveLibrary"]');
     
     //Asserting that the library was stored in local database and is show in the page
     await visit('libraries');
-    await pauseTest();
-    assert.equal(find('[data-test="libName"]').textContent, 'Biblioteca Penha',
+    assert.dom(find('[data-test="libName"]')).hasText(libraryNameForm,
       'Assert library name saved previously');
-    assert.equal(find('[data-test="libAddress"]').textContent, 'Address: Rua do Bosque, 989',
+    assert.dom(find('[data-test="libAddress"]')).includesText(libraryAddressForm,
       'Assert library address saved previously');
-    assert.equal(find('[data-test="libPhone"]').textContent, 'Phone: (11) 4444-3333',
+    assert.dom(find('[data-test="libPhone"]')).includesText(libraryPhoneForm,
       'Assert library phone saved previously');
 
     //Filling the fields of seeder form to create libraries, books and authors with ember-faker
@@ -123,13 +118,9 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Filling 4 to create 4 authors and a random number of books
     await visit('admin/seeder');
     await fillIn('[data-test="libInput"]', '2');
-    await pauseTest();
     await click('[data-test="libButton"]')
-    await pauseTest();
     await fillIn('[data-test="authorInput"]', '4');
-    await pauseTest();
     await click('[data-test="authorButton"]')
-    await pauseTest();
 
     //Asserting that the numbers of libraries and authors created are equal to the numbers filled in the form
     //Remeber that the number of libraries is three because I created 1 before in the form
@@ -141,6 +132,10 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //The numbers of book created by the seeder is always random, so here I´m getting this random number of
     //books from the respective number box to use later in an assertion
+    let numberLib = (this.element.querySelector('[data-test="numberLib"]')).textContent
+    let numberLibInt = parseInt(numberLib)
+    let numberAuthor = (this.element.querySelector('[data-test="numberAuthor"]')).textContent
+    let numberAuthorInt = parseInt(numberAuthor)
     let numberBooks = (this.element.querySelector('[data-test="numberBook"]')).textContent
     let numberBooksInt = parseInt(numberBooks)
 
@@ -149,8 +144,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Here the assertion works by counting the html elements with their respective data-test attributes,
     //so, there must be three .card-body that means three libraries
     await visit('libraries');
-    assert.dom('.card-body').exists({count: 3}, 'Assert the correct number of library cards');
-    await pauseTest();
+    assert.dom('.card-body').exists({count: numberLibInt}, 'Assert the correct number of library cards');
 
     //Asserting the number of authors and books created by the seeder in authors page
     //(Here I use let numberBooksInt)
@@ -158,10 +152,9 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Its the same as was with the libraries, suppose there is 20 authors, there will be 20 data-test="book"
     //elements
     await visit('authors');
-    assert.dom('[data-test="author"]').exists({count: 4}, 'Assert the total number of authors in the table');
+    assert.dom('[data-test="author"]').exists({count: numberAuthorInt}, 'Assert the total number of authors in the table');
     assert.dom('[data-test="book"]').exists({count: numberBooksInt}, 
       'Assert the total number of books show in table');
-    await pauseTest();
 
     //Invalidating the session
     await invalidateSession();
@@ -170,7 +163,6 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //"log out", so I visit a protected page and assert that after invalidateSession() the user
     //is logged out of the system and is redirected to login page
     await visit('admin/contacts');
-    await pauseTest();
     assert.equal(currentURL(), '/login', 
       'Assert after being logged out you can´t enter protected routes');
   });
