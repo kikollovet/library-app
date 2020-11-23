@@ -60,8 +60,8 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //Sending a contact message. Also check button is disabled without valid e-mail and message that got less than
     //five characters. After filled in the right requirements check the button is not disabled
-    const emailContactForm = 'hellofrommars@gmaioul.com';
-    const messageContactForm = 'Hello!! Greetings from Mars!!';
+    const emailContactForm = faker.internet.email();
+    const messageContactForm = faker.lorem.sentence();
     await visit('contact');
     assert.dom('[data-test="saveContact"]').isDisabled();
     await fillIn('[data-test="contactEmail"]', emailContactForm)
@@ -94,9 +94,9 @@ module('Acceptance | Main flow of Application', function(hooks) {
   
     //Populating the form and saving a Library. Also check if button is disabled when the field for the
     //name of the library is empty, and not disabled when its filled
-    const libraryNameForm = 'Biblioteca Penha';
-    const libraryAddressForm = 'Rua do Bosque, 989';
-    const libraryPhoneForm = '(11) 4444-3333'
+    const libraryNameForm = faker.company.companyName() + ' Library';
+    const libraryAddressForm = faker.address.streetAddress();
+    const libraryPhoneForm = faker.phone.phoneNumber()
     await visit('libraries/new');
     assert.dom('[data-test="saveLibrary"]').isDisabled();
     await fillIn('[data-test="nameLib"]', libraryNameForm);
@@ -117,18 +117,21 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Filling the fields of seeder form to create libraries, books and authors with ember-faker
     //Filling 2 to create 2 libraries
     //Filling 4 to create 4 authors and a random number of books
+    const libNumberForm = Math.floor(Math.random() * 100);
+    const authorNumberForm = Math.floor(Math.random() * 101);
     await visit('admin/seeder');
-    await fillIn('[data-test="libInput"]', '2');
+    await fillIn('[data-test="libInput"]', libNumberForm);
     await click('[data-test="libButton"]')
-    await fillIn('[data-test="authorInput"]', '4');
+    await fillIn('[data-test="authorInput"]', authorNumberForm);
     await click('[data-test="authorButton"]')
 
     //Asserting that the numbers of libraries and authors created are equal to the numbers filled in the form
     //Remeber that the number of libraries is three because I created 1 before in the form
     //Attention, here we are still in seeder page and the numbers I get from the respective number box.
-    assert.equal(find('[data-test="numberLib"]').textContent, '3',
+    const totalNumberOfLibs = libNumberForm + 1 //had to add 1 because it was created in the form
+    assert.equal(find('[data-test="numberLib"]').textContent, totalNumberOfLibs,
       'Assert total number of libraries in the corresponding number box');
-    assert.equal(find('[data-test="numberAuthor"]').textContent, '4',
+    assert.equal(find('[data-test="numberAuthor"]').textContent, authorNumberForm,
       'Assert total number of authors in the corresponding number box');
 
     //The numbers of book created by the seeder is always random, so here I´m getting this random number of
