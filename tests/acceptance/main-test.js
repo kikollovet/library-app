@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import Service from '@ember/service';
 import Adapter from 'ember-local-storage/adapters/local';
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
+import faker from 'faker';
 
 module('Acceptance | Main flow of Application', function(hooks) {
   setupApplicationTest(hooks);
@@ -50,10 +51,11 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //Sending an invitation. Also check button is disabled with no e-mail written and not disable with valid
     //email
-    const emailInvitationInput = 'cool@cool.com';
+    const emailInvitationInput = faker.internet.email();
     await visit('');
     assert.dom('[data-test="saveInvitation"]').isDisabled();
     await fillIn('[data-test="emailField"]', emailInvitationInput);
+    await pauseTest()
     assert.dom('[data-test="saveInvitation"]').isNotDisabled();
     await click('[data-test="saveInvitation"]');
 
@@ -83,6 +85,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Asserting that the invitation was stored in local database and is show in the page
     assert.equal(find('[data-test="invitationEmail"]').textContent, emailInvitationInput,
       "Assert invitation saved previously is show in admin/invitations");
+      await pauseTest()
 
     //Asserting that the contact message was stored in local database and is show in the page
     await visit('admin/contacts');
