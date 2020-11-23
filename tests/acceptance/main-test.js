@@ -117,8 +117,8 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Filling the fields of seeder form to create libraries, books and authors with ember-faker
     //Filling 2 to create 2 libraries
     //Filling 4 to create 4 authors and a random number of books
-    const libNumberForm = Math.floor(Math.random() * 100);
-    const authorNumberForm = Math.floor(Math.random() * 101);
+    const libNumberForm = Math.floor(Math.random() * 99) + 1;
+    const authorNumberForm = Math.floor(Math.random() * 100) + 1;
     await visit('admin/seeder');
     await fillIn('[data-test="libInput"]', libNumberForm);
     await click('[data-test="libButton"]')
@@ -128,7 +128,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     //Asserting that the numbers of libraries and authors created are equal to the numbers filled in the form
     //Remeber that the number of libraries is three because I created 1 before in the form
     //Attention, here we are still in seeder page and the numbers I get from the respective number box.
-    const totalNumberOfLibs = libNumberForm + 1 //had to add 1 because it was created in the form
+    const totalNumberOfLibs = libNumberForm + 1 //had to add 1 because one was created in the form
     assert.equal(find('[data-test="numberLib"]').textContent, totalNumberOfLibs,
       'Assert total number of libraries in the corresponding number box');
     assert.equal(find('[data-test="numberAuthor"]').textContent, authorNumberForm,
