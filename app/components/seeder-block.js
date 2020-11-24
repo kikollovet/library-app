@@ -1,4 +1,4 @@
-import { lte, not, or } from '@ember/object/computed';
+import { lte, not, or, and, equal } from '@ember/object/computed';
 import Component from '@ember/component';
 
 const MAX_VALUE = 100;
@@ -9,6 +9,7 @@ export default Component.extend({
 
     isCounterValid: lte('counter', MAX_VALUE),
     isCounterNotValid: not('isCounterValid'),
+    isCounterDifferentFromZero: lte('counter', 0),
     placeholder: `Max ${MAX_VALUE}`,
 
     generateReady: false,
@@ -17,7 +18,7 @@ export default Component.extend({
     generateInProgress: false,
     deleteInProgress: false,
 
-    generateIsDisabled: or('isCounterNotValid', 'generateInProgress', 'deleteInProgress'),
+    generateIsDisabled: or('isCounterDifferentFromZero', 'isCounterNotValid', 'generateInProgress', 'deleteInProgress'),
     deleteIsDisabled: or('generateInProgress', 'deleteInProgress'),
 
     actions: {

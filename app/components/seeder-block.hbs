@@ -5,7 +5,7 @@
   
         <div class="form-group has-feedback {{unless isCounterValid 'has-error'}}">
             <label class="control-label">Number of new records:</label>
-            <Input data-test={{idInput}} @value={{counter}} class='form-control' placeholder=placeholder/>
+            <Input data-test={{idInput}} @value={{counter}} class='form-control' placeholder={{placeholder}}/>
         </div>
   
         <button data-test={{idButton}} class="btn btn-primary" {{action 'generateAction'}} disabled={{generateIsDisabled}}>
