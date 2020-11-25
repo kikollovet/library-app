@@ -157,10 +157,8 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //Invalidating the session
     await invalidateSession();
-    
-    //I don´t know why but it doesn´t redirect to '/' just in the test as it is supposed to do after the 
-    //"log out", so I visit a protected page and assert that after invalidateSession() the user
-    //is logged out of the system and is redirected to login page
+  
+    //Confirming that the session is invalidated and is not allowed to enter in protected route
     await visit('admin/contacts');
     assert.equal(currentURL(), '/login', 
       'Assert after being logged out you can´t enter protected routes');
