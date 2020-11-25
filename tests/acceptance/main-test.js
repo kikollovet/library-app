@@ -4,7 +4,7 @@ import { setupApplicationTest } from 'ember-qunit';
 import { currentSession, authenticateSession, invalidateSession } from 'ember-simple-auth/test-support';
 import { tracked } from '@glimmer/tracking';
 import Service from '@ember/service';
-import Adapter from 'ember-local-storage/adapters/local';
+import Adapter from 'ember-local-storage/adapters/session';
 import resetStorages from 'ember-local-storage/test-support/reset-storage';
 import faker from 'faker';
 
@@ -20,16 +20,13 @@ module('Acceptance | Main flow of Application', function(hooks) {
     });
 
     //This adapter is used to use ember local storage instead of firestore
-    this.owner.register('adapter:application', class TestService extends Adapter {
+    this.owner.register('adapter:application', class TestAdapter extends Adapter {
    
     });
   });
 
   //This makes the database empty after the end of the test
   hooks.afterEach(function() {
-    if (window.localStorage) {
-      window.localStorage.clear();
-    }
     if (window.sessionStorage) {
       window.sessionStorage.clear();
     }
@@ -114,9 +111,8 @@ module('Acceptance | Main flow of Application', function(hooks) {
     assert.dom(find('[data-test="libPhone"]')).includesText(libraryPhoneForm,
       'Assert library phone saved previously');
 
-    //Filling the fields of seeder form to create libraries, books and authors with ember-faker
-    //Filling 2 to create 2 libraries
-    //Filling 4 to create 4 authors and a random number of books
+    //Filling the fields of seeder form to create libraries, books and authors with random number
+    //between 1 and 99 for libraries and between 1 and 100 for authors
     const libNumberForm = Math.floor(Math.random() * 99) + 1;
     const authorNumberForm = Math.floor(Math.random() * 100) + 1;
     await visit('admin/seeder');
@@ -126,7 +122,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     await click('[data-test="authorButton"]')
 
     //Asserting that the numbers of libraries and authors created are equal to the numbers filled in the form
-    //Remeber that the number of libraries is three because I created 1 before in the form
+    //Remeber that the number of libraries is added one because one was created filling the form
     //Attention, here we are still in seeder page and the numbers I get from the respective number box.
     const totalNumberOfLibs = libNumberForm + 1 //had to add 1 because one was created in the form
     assert.equal(find('[data-test="numberLib"]').textContent, totalNumberOfLibs,
@@ -143,8 +139,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
     let numberBooks = (this.element.querySelector('[data-test="numberBook"]')).textContent
     let numberBooksInt = parseInt(numberBooks)
 
-    //Asserting that there are 3 libraries cards because 1 I created in the form and two created with the 
-    //seeder
+    //Asserting the number of libraries
     //Here the assertion works by counting the html elements with their respective data-test attributes,
     //so, there must be three .card-body that means three libraries
     await visit('libraries');

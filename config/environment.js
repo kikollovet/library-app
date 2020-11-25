@@ -52,6 +52,11 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+    ENV['ember-local-storage'] = {
+      namespace: 'testData', // will use 'customNamespace'
+      keyDelimiter: '/', // will use / as a delimiter - the default is :
+      includeEmberDataSupport: true
+    }
   }
 
   if (environment === 'production') {
