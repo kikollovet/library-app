@@ -123,7 +123,7 @@ module('Acceptance | Main flow of Application', function(hooks) {
 
     //Asserting that the numbers of libraries and authors created are equal to the numbers filled in the form
     //The number of libraries is added one because one was created filling the form
-    //Attention, here we are still in seeder page and the numbers I get from the respective number box.
+    //Here it gets the total number of libraries and authors from the respective number box.
     const totalNumberOfLibs = libNumberForm + 1 //had to add 1 because one was created in the form
     assert.equal(find('[data-test="numberLib"]').textContent, totalNumberOfLibs,
       'Assert total number of libraries in the corresponding number box');
