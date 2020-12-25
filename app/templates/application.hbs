@@ -3,7 +3,9 @@
   <NavBar>
     {{#if session.isAuthenticated}}
       <li style="margin-top:7px; margin-left:10px">
-        <button {{action "logout"}} class="btn btn-primary" >Sign out {{loggedUser.user.email}}</button>
+        <button id="logoutButton" {{action "logout"}} class="btn btn-primary" >
+          Sign out{{#if loggedUser.user.email}} {{loggedUser.user.email}} {{/if}}
+        </button>
       </li>
     {{/if}}
   </NavBar>

@@ -13,19 +13,19 @@
     <form class="form-horizontal">
         <div class="form-group has-feedback {{if model.isValidEmail "has-success"}}">
             <div class="col-md-4">
-                {{input type="email" value=model.email class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
+                <Input data-test="contactEmail" @type="email" @value={{@model.email}} class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"/>
                 {{#if model.isValidEmail}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
             </div>
         </div>
         <div class="form-group has-feedback {{if model.isLongEnough "has-success"}}">
             <div class="col-md-5">
-                {{textarea class="form-control" value=model.message placeholder="Your message. (At least 5 characters.)" rows="7"}}
+                <Textarea data-test="contactMessage" class="form-control" @value={{@model.message}} placeholder="Your message. (At least 5 characters.)" rows="7"/>
                 {{#if model.isLongEnough}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-3">
-                <button class="btn btn-primary btn-block" disabled={{model.isDisabled}} {{action 'sendContactMessage' model}}>Send message</button>
+                <button data-test="saveContact" class="btn btn-primary btn-block" disabled={{@model.isDisabled}} {{action 'sendContactMessage' model}}>Send message</button>
             </div>
         </div>
     </form>

@@ -13,8 +13,13 @@ export default Route.extend({
             newContact.save().then(() => newContact.set('responseMessage', true));
         },
 
-        willTransaction() {
-            this.controller.get('model').rollbackAttributes();
+        willTransition(transition) {
+
+            let model = this.controller.get('model');
+
+            if (model.get('hasDirtyAttributes')) {
+                    model.rollbackAttributes(); 
+            }
         }
     }
 });
