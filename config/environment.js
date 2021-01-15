@@ -8,13 +8,13 @@ module.exports = function(environment) {
     locationType: 'auto',
 
     firebase: {
-      apiKey: 'AIzaSyDhMxUwb88en8wIInOEDUb0OnTMk_UI_eU',
-      authDomain: 'library-app-d127b.firebaseapp.com',
-      databaseURL: 'https://library-app-d127b.firebaseio.com',
-      projectId: 'library-app-d127b',
-      storageBucket: 'library-app-d127b.appspot.com',
-      messagingSenderId: '989821641053',
-      appId: "1:989821641053:web:9f8eba505a7436fbf108b4"
+      apiKey: '',
+      authDomain: '',
+      databaseURL: '',
+      projectId: '',
+      storageBucket: '',
+      messagingSenderId: '',
+      appId: ""
     },   
 
     EmberENV: {
